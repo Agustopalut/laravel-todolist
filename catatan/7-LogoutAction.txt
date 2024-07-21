@@ -1,0 +1,20 @@
+Logout ACTION
+
+public function doLogout(Request $request) {
+        // registration page
+        $request->session()->forget('username'); //menghapus session
+        return redirect('/login');
+    }
+
+    
+Testing:
+
+public function testLogout() {
+        $this->withSession([
+            'username' => 'khannedy'
+        ])
+        ->post('/logout')
+        ->assertRedirect('/login')
+        ->assertSessionMissing('username'); //berharap sesion nya hilang/sudah terhapus 
+
+    }

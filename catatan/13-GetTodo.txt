@@ -1,0 +1,26 @@
+public function GetTodoList(): array {
+        return Session::get('todolist',[]);// array kosong artinya, nilai default/data kosong jika tidak ditemukan session nya 
+    }
+
+Testing:
+
+public function testGetTodoEmpty() {
+        self::assertEquals([], $this->todoListService->GetTodoList());
+        // expected nya data kosong, karena kita memang blm menambahkan data apapun
+    }
+
+    public function testGetTodoNotEmpty () {
+        $expected =[
+            [
+                'id' => '1',
+                'todo' => 'eko'
+            ],
+            [
+                'id' => '2',
+                'todo' => 'budi'
+            ]
+            ];
+            $this->todoListService->SaveTodo('1','eko');
+            $this->todoListService->SaveTodo('2','budi');
+            self::assertEquals($expected,$this->todoListService->GetTodoList());
+    }

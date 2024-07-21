@@ -1,0 +1,36 @@
+MIDDLEWARE GUEST
+- berguna untuk memastikan user belum login (tamu)
+contoh:
+public function handle(Request $request, Closure $next)
+    {
+        if ($request->session()->exists('username')) {
+            // jika session nya ada, itu artisannya dia sudah login
+            return redirect('/');// jadi untuk apa login lagi;
+        } else {
+            # code...
+            return $next($request);
+        }
+    }
+
+
+
+Testing:
+
+public function testLoginUserPage() {
+        $this->withSession([
+            'username' => 'khannedy'
+        ])
+        ->get('/login')
+        ->assertRedirect('/'); //karena dia sudah login, expected nya dia di redirect ke /
+    }
+
+    public function testLoginGuest() {
+        $this->withSession([
+            'username' => 'khannedy'
+        ])
+        ->post('/login',[
+            'username' => 'khannedy',
+            'password' => 'eko123'
+        ])
+        ->assertRedirect('/'); 
+    }

@@ -1,0 +1,27 @@
+method:
+public function removeTodo(Request $request,string $todoId) {
+        $this->todolistService->RemoveTodo($todoId);
+
+        return redirect('/todolist');
+
+    }
+
+Testing:
+
+public function testRemoveTodo() {
+        $this->withSession([
+            'username' =>'khannedy',
+            'todolist' => [
+                [
+                    'id' => '1',
+                    'todo' => 'eko'
+                ],
+                [
+                    'id' => '2',
+                    'todo' => 'budi'
+                ],
+            ]
+        ])
+        ->delete('/todolist/1/delete')
+        ->assertRedirect('/todolist');
+    }

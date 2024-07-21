@@ -1,0 +1,50 @@
+public function doLogin(Request $request)  {
+
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        if(empty($username) || empty($password)) {
+            // jika user tidak mengirim usernmae dan password 
+            return view('user.login',[
+                'title' => 'Login',
+                'error' => 'username atau password wajib diisi'
+            ]);
+        }
+
+        if($this->userService->login($username, $password)) {
+            // jika berhasil login
+            $request->session()->put('usernae',$username); //membuat session
+            return redirect('/');
+        }
+        
+        // jika gagal login
+        return view('user.login',[
+            'title' => 'Login',
+            'error' => 'username atau password Salah'
+        ]);
+    }
+
+Testing:
+
+
+public function testLoginSuccess() {
+        $this->post('/login',[
+            'username' => 'khannedy',
+            'password' => 'eko123'
+        ])->assertRedirect('/')
+        ->assertSessionHas('username','khannedy');
+    }
+
+    public function testUsernameAndPasswordWrong() {
+
+        $this->post('/login',[
+            'username' => 'wrong',
+            'password' => 'wrong'
+        ])->assertSeeText('username atau password salah');
+
+    }
+    public function testLoginEmpty() {
+
+        $this->post('/login',[])->assertSeeText('username atau password wajib diisi');
+
+    }

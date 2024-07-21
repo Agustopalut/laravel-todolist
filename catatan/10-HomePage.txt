@@ -1,0 +1,26 @@
+public function home(Request $request): RedirectResponse {
+
+        if ($request->session()->exists('username')) {
+            // jika sudah login 
+            return redirect('/todolist');
+            # code...
+        } else {
+            return redirect('/login');
+        }
+        
+    }
+
+Testing:
+
+public function testGuest() {
+        $this->withSession([])
+        ->get('/')
+        ->assertRedirect('/login');
+    }
+    public function testUser() {
+        $this->withSession([
+            'username' => 'khannedy'
+        ])
+        ->get('/')
+        ->assertRedirect('/todolist');
+    }

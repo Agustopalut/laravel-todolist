@@ -1,0 +1,5 @@
+ Fungsi Tanpa Nilai Kembali:
+
+Kata kunci void digunakan untuk mendeklarasikan tipe data kembalian fungsi.
+Dalam konteks ini, void menunjukkan bahwa fungsi SaveTodo tidak menghasilkan nilai yang dapat digunakan setelah dipanggil.
+Fungsi ini mungkin melakukan tindakan, seperti menyimpan data ke database, namun tidak memberikan hasil yang eksplisit kepada program.

@@ -1,0 +1,13 @@
+//jangan lupa registrasikan provider nya ke config/app.php
+Testing :
+private TodolistService $todoListService;
+
+    public function setUp(): void {
+        // wajib sertakan void
+        parent::setUp();
+        $this->todoListService = $this->app->make(TodolistService::class);
+    }
+
+    public function testNotNull() {
+        self::assertNotNull($this->todoListService);
+    }

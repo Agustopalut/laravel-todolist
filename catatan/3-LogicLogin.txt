@@ -1,0 +1,42 @@
+Logic Login
+- membuat method login pada interface:
+interface UserService {
+    // kontrak
+    function login(string $usernmae,string $password): bool;
+    // yang direturn wajin true/false;
+}
+
+- membuat method login untuk impplementasi dari interface::
+class UserServiceImpl implements UserService {
+    // class untuk implementasi untuk logic nya 
+    private array $users =[
+        'khannedy' => 'eko123'
+        // username => password;
+    ]; 
+
+    public function login (string $username,string $password): bool {
+
+        if(!isset($this->users[$username])) {
+            // apakah ada data dengan key username yang dikirim
+            // jika tidak ada 
+            return false;
+        } 
+
+        $correctPass = $this->users[$username];
+
+        return $password == $correctPass; // jika sama ini akan menghasilkan true;
+
+    }
+}
+
+Testing:
+ public function testLoginSuccess() {
+        self::assertTrue($this->userService->login('khannedy','eko123'));
+    }
+
+    public function testLoginFailed() {
+        self::assertFalse($this->userService->login('eko','eko123'));
+    }
+    public function testWrongPassword() {
+        self::assertFalse($this->userService->login('khannedy','eko'));
+    }

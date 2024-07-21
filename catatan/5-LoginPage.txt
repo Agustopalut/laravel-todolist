@@ -1,0 +1,15 @@
+MENAMPILKAN ERROR
+@if (isset($error))
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                A simple primary alert—check it out!
+            </div>
+        </div>
+    @endif
+
+Testing Page:
+
+public function testLoginPage() {
+        $this->get('/login')
+        ->assertSeeText('Login'); // title nya Login;
+    }

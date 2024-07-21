@@ -1,0 +1,32 @@
+public function SaveTodo(string $id, string $todo): void
+    {
+        if(!Session::exists('todolist')) {
+            // jika todolist nya belu, ada
+            // gunakan session yang ini: use Illuminate\Support\Facades\Session;
+            // karena tidak object request, kita langsung mennggunakan syntax session
+            Session::put('todolist',[]);
+        }
+
+        // tambah data nya ke session
+
+        Session::push('todolist',[
+            'id' => $id,
+            'todo' => $todo
+        ]);
+        // : void, artinya tidak mengembalikan apapun
+        // hanya sebuah logic biasa 
+
+    }
+
+Testing:
+ // gunakan session yang ini: use Illuminate\Support\Facades\Session;
+ public function testSaveTodo() {
+        $this->todoListService->SaveTodo('1','eko');
+
+        $todolist = Session::get('todolist');
+
+        foreach ($todolist as $value) {
+            self::assertEquals('1', $value['id']);
+            self::assertEquals('eko', $value['todo']);
+        }
+    }
